@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editar Aluno</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<div class="container my-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <strong>Cadastro de Alunos</strong>
+        </div>
+        <div class="card-body">
+            <form th:object="${aluno}" th:action="@{/edit/{id}(id=${aluno.id})}" method="POST">
+                <div class="mb-3">
+                    <div class="alert alert-danger d-none" role="alert" th:if="${#fields.hasAnyErrors()}">
+                        <div th:each="detailedError : ${#fields.detailedErrors()}">
+                            <span th:text="${detailedError.message}"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="id" class="form-label">ID</label>
+                    <input type="text" class="form-control" id="id" th:field="*{id}" readonly/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome" th:field="*{nome}" placeholder="Informe o nome" maxlength="50"/>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:text="${#fields.errors('nome')}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="serie" class="form-label">Serie</label>
+                    <input type="text" class="form-control" id="serie" th:field="*{serie}" placeholder="Informe a serie" maxlength="150"/>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('serie')}" th:text="${#fields.errors('serie')}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="dataNascimento" class="form-label">dataNascimento</label>
+                    <input type="date" class="form-control" id="dataNascimento" th:field="*{dataNascimento}"/>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('dataNascimento')}" th:text="${#fields.errors('dataNascimento')}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="genero" class="form-label">Genero</label>
+                    <select class="form-select" id="genero" name="genero" th:field="*{genero}">
+                        <option value="">Selecione um genero</option>
+                        <option th:each="gen : ${T(com.matera.blog.model.Genero).values()}"
+                                th:value="${gen}"
+                                th:text="${gen.getNomeGenero()}">
+                        </option>
+                    </select>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('genero')}" th:text="${#fields.errors('genero')}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="texto" class="form-label">Texto</label>
+                    <textarea class="form-control" id="texto" th:field="*{texto}" rows="5" placeholder="Informe o texto"></textarea>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('texto')}" th:text="${#fields.errors('texto')}"></div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a th:href="@{/}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
