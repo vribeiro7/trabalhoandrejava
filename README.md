@@ -1,4 +1,4 @@
-##🧠 Trabalho / Prova | Andre
+#🧠 Trabalho / Prova | Andre
 
 ##📚 Descrição
 # - Repositório para armazenar resumos sobre o trabalho de Java lecionado pelo professor André
